@@ -1,0 +1,25 @@
+async function getCurrentTimeStart(): Promise<void> {     
+    Context.data.vremya_nachala = new TTime(); 
+    }
+
+async function getCurrentTimeEnd(): Promise<void> {     
+    Context.data.vremya_okonchaniya = new TTime();     
+    getCurrentTimeAll(); 
+    }
+
+async function getCurrentTimeAll(): Promise<void> {
+    if (Context.data.vremya_nachala && Context.data.vremya_okonchaniya){ 
+    
+    const allHours = ((Context.data.vremya_okonchaniya.hours - Context.data.vremya_nachala.hours));     
+    
+    if (Context.data.vremya_nachala.minutes > Context.data.vremya_okonchaniya.minutes){         
+    const allMinutes = (60 + Context.data.vremya_okonchaniya.minutes - Context.data.vremya_nachala.minutes);         
+    Context.data.vremya_segodnya = new TTime(allHours-1,allMinutes,0,0);     
+    } else {         
+        
+    const allMinutes = (Context.data.vremya_okonchaniya.minutes - Context.data.vremya_nachala.minutes);
+    Context.data.vremya_segodnya = new TTime(allHours,allMinutes,0,0);     
+    }         
+    } 
+    
+}
